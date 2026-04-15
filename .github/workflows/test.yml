@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check SKILL.md frontmatter format
+        run: |
+          for dir in */; do
+            if [ -f "${dir}SKILL.md" ]; then
+              echo "Checking ${dir}SKILL.md..."
+              # Check if file starts with ---
+              if ! head -1 "${dir}SKILL.md" | grep -q "^---"; then
+                echo "ERROR: ${dir}SKILL.md missing frontmatter opening ---"
+                exit 1
+              fi
+              # Check for required frontmatter fields
+              if ! grep -q "^name:" "${dir}SKILL.md"; then
+                echo "ERROR: ${dir}SKILL.md missing 'name' field"
+                exit 1
+              fi
+              if ! grep -q "^description:" "${dir}SKILL.md"; then
+                echo "ERROR: ${dir}SKILL.md missing 'description' field"
+                exit 1
+              fi
+            fi
+          done
+
+      - name: Check references directory integrity
+        run: |
+          if [ ! -d "references" ]; then
+            echo "ERROR: references/ directory not found"
+            exit 1
+          fi
+          # Check for README if references exists
+          if [ ! -f "references/README.md" ] && [ "$(ls -A references/ 2>/dev/null)" ]; then
+            echo "WARNING: references/ exists but no README.md found"
+          fi
