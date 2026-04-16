@@ -1,0 +1,30 @@
+{
+  "version": "2.1",
+  "mode": "single",
+  "current_subject_index": 0,
+  "difficulty": 3,
+  "streak_correct": 0,
+  "streak_wrong": 0,
+  "total_answered": 0,
+  "total_correct": 0,
+  "question_count": 0,
+  "session_start": null,
+  "last_question_time": null,
+  "subject_mode": null,
+  "question_history": [],
+  "daily_stats": {
+    "date": null,
+    "answered": 0,
+    "correct": 0
+  },
+  "weekly_stats": {
+    "week_start": null,
+    "answered": 0,
+    "correct": 0
+  },
+  "monthly_stats": {
+    "month_start": null,
+    "answered": 0,
+    "correct": 0
+  }
+}
